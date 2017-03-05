@@ -1,0 +1,117 @@
+/* Space out content a bit */
+body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+	margin-top: 0;
+	margin-bottom: 0;
+	line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+	padding-top: 19px;
+	color: #777;
+	border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+	.container {
+		max-width: 730px;
+	}
+}
+.container-narrow > hr {
+	margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron { 
+	max-height: 298px;
+}
+.jumbotron #guestForm {
+	/*border-bottom: 1px solid #e5e5e5;*/
+	text-align: center;
+	transition: all 0.3s;
+}
+.jumbotron #guestForm .input-group {
+    width: 50%;
+    margin: auto;
+}
+.jumbotron .btn {
+	padding: 14px 24px;
+	margin-top: 20px;
+	font-size: 21px;
+}
+.jumbotron #chat {
+    /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+    /*padding: 5px 0 0 0;*/
+	display: none;
+	margin-top: -20px;
+}
+
+.jumbotron #chatContainer {
+	height: 200px;
+	overflow: auto;
+}
+
+.jumbotron #chatContainer .pseudo {
+	font-weight: bold;
+	padding: 5px;
+}
+
+.jumbotron #chatContainer .status {
+	font-size: 12px;
+    font-style: italic;
+}
+
+.jumbotron #chatContainer div {
+    padding: 5px 0px;
+}
+
+.jumbotron #chatContainer div:nth-child(even){
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Supporting marketing content */
+.marketing {
+	margin: 40px 0;
+}
+.marketing p + h4 {
+	margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+	/* Remove the padding we set earlier */
+	.header,
+	.marketing,
+	.footer {
+		padding-right: 0;
+		padding-left: 0;
+	}
+	/* Space out the masthead */
+	.header {
+		margin-bottom: 30px;
+	}
+	/* Remove the bottom border on the jumbotron for visual effect */
+	.jumbotron {
+		border-bottom: 0;
+	}
+}
