@@ -6,6 +6,14 @@ var messageForm = document.getElementById('messageForm');
 var messageInput = document.getElementById('message');
 var chatContainer = document.getElementById('chatContainer');
 
+var isAlreadyLogged = false;
+
+//If user already signed up, previously used username is retrieved
+if(localStorage.getItem('username') != undefined) {
+    socket.emit('logIn', localStorage.getItem('username'));
+    isAlreadyLogged = true;
+}
+
 connectForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -13,9 +21,12 @@ connectForm.addEventListener('submit', function(e) {
     if (username.value.trim().length == 0)
         return;
 
+    
     socket.emit('logIn', username.value);
     console.log('Tring to log in as :', username.value);
-    username.value = '';
+    // username.value = '';
+
+    localStorage.setItem('username', username.value);
 });
 
 messageForm.addEventListener('submit', function(e) {
@@ -74,7 +85,9 @@ socket.on('displayMsg', function (message) {
         pseudo.classList.add('status');
         messageTxt.classList.add('status');
     }
-    scrollToBottom();
+
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    // scrollToBottom();
 });
 
 socket.on('displayIsWriting', function (users) {
@@ -89,12 +102,18 @@ socket.on('displayIsWriting', function (users) {
 
 function logInAnimation() {
     var guestForm = document.getElementById('guestForm');
+
+    if(isAlreadyLogged){
+        //Here do something to the html/css if user is already logged
+    }
+    
     guestForm.style.opacity = '0';
     setTimeout(function() {
         guestForm.style.display = 'none';
         document.getElementById('chat').style.display = 'block';
         messageInput.focus();
     }, 300);
+    
     document.getElementById('fromUser').innerText = '@'+loggedUser;
 }
 

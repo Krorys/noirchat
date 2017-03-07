@@ -26,6 +26,7 @@ body {
 
 /* Custom page footer */
 .footer {
+	margin-top: 3%;
 	padding-top: 19px;
 	color: #777;
 	border-top: 1px solid #e5e5e5;
@@ -34,7 +35,7 @@ body {
 /* Customize container */
 @media (min-width: 768px) {
 	.container {
-		max-width: 730px;
+		max-width: 1000px;
 	}
 }
 .container-narrow > hr {
@@ -43,7 +44,7 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron { 
-	max-height: 298px;
+	height: 410px;
 }
 .jumbotron #guestForm {
 	/*border-bottom: 1px solid #e5e5e5;*/
@@ -67,7 +68,7 @@ body {
 }
 
 .jumbotron #chatContainer {
-	height: 200px;
+	height: 300px;
 	overflow: auto;
 }
 
