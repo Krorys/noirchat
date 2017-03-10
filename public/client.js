@@ -65,7 +65,12 @@ messageInput.addEventListener('keypress', function(e) {
 socket.on('logInSuccess', function (user) {
     loggedUser = user;
     console.log("Successfully logged in as  :", user);
-    logInAnimation();
+    if(isAlreadyLogged){
+        logInAnimation();
+    }
+    else{
+        logInAfterInputAnimation();
+    }
 });
 
 socket.on('displayMsg', function (message) {

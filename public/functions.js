@@ -1,11 +1,26 @@
 function logInAnimation() {
     var guestForm = document.getElementById('guestForm');
     
+    guestForm.style.display = 'none';
     document.getElementById('logged-users-list').style.display = 'initial';
+
+    setTimeout(function() {
+        document.getElementById('chat').style.display = 'initial';
+        document.getElementById('logged-users-list').style.opacity = '1';
+        messageInput.focus();
+    }, 500);
+    
+    document.getElementById('fromUser').innerText = '@'+loggedUser;
+}
+
+function logInAfterInputAnimation() {
+    var guestForm = document.getElementById('guestForm');
+    
+    guestForm.style.opacity = '0';
     setTimeout(function() {
         guestForm.style.display = 'none';
         document.getElementById('chat').style.display = 'initial';
-        document.getElementById('logged-users-list').style.opacity = '1';
+        document.getElementById('logged-users-list').style.display = 'initial';
         messageInput.focus();
     }, 500);
     
