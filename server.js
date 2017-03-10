@@ -3,12 +3,24 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
 app.use("/", express.static(__dirname + "/public"));
 http.listen(3000, function() {
     console.log("Server is listening on : 3000");
 });
 
 var writingUsers = [];
+var currentUsers = [];
 io.on('connection', function(socket){
     // console.log('User connected');
     var loggedUser;
@@ -17,6 +29,8 @@ io.on('connection', function(socket){
         // console.log('User disconnected', loggedUser);
         if (loggedUser == null)
             return;
+        currentUsers.remove(loggedUser);
+        io.emit('usersList',currentUsers);
         var message = {
             sender: loggedUser,
             at : new Date().toISOString(),
@@ -29,6 +43,8 @@ io.on('connection', function(socket){
     socket.on('logIn', function (user) {
         // console.log('Logged as :', user);
         loggedUser = user;
+        currentUsers.push(loggedUser);
+        io.emit('usersList',currentUsers);
         socket.emit('logInSuccess', loggedUser);
         var message = {
             sender: loggedUser,

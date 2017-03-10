@@ -100,6 +100,17 @@ socket.on('displayIsWriting', function (users) {
     document.getElementById('isWriting').innerText = txt;
 });
 
+socket.on('usersList', function (currentUsers) {
+    var usersDOM = document.getElementById('logged-users-list');
+    var newUsersList = ["Logged users:<br/>"];
+
+    for (var i = 0; i < currentUsers.length; i++) {
+        newUsersList.push("- " + currentUsers[i] + "<br/>")
+    }
+
+    usersDOM.innerHTML = newUsersList.join("");
+});
+
 function logInAnimation() {
     var guestForm = document.getElementById('guestForm');
 
@@ -110,7 +121,8 @@ function logInAnimation() {
     guestForm.style.opacity = '0';
     setTimeout(function() {
         guestForm.style.display = 'none';
-        document.getElementById('chat').style.display = 'block';
+        document.getElementById('chat').style.display = 'initial';
+        document.getElementById('logged-users-list').style.display = 'initial';
         messageInput.focus();
     }, 300);
     
