@@ -17,6 +17,7 @@ function logInAfterInputAnimation() {
     var guestForm = document.getElementById('guestForm');
     
     guestForm.style.opacity = '0';
+    document.getElementById('logged-users-list').style.opacity = '1';
     setTimeout(function() {
         guestForm.style.display = 'none';
         document.getElementById('chat').style.display = 'initial';
