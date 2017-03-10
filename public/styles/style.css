@@ -133,3 +133,14 @@ body {
 		padding-top: 53px;
 	}
 }
+
+@media (max-width: 992px) {
+	.jumbotron #logged-users-list{
+		display: none !important;
+	}
+
+	.container .jumbotron { 
+		padding-right: 35px;
+		padding-top: 20px;
+	}
+}
