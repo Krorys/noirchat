@@ -9,11 +9,10 @@ var chatContainer = document.getElementById('chatContainer');
 var isAlreadyLogged = false;
 
 //If user already signed up, previously used username is retrieved
-if(localStorage.getItem('username') != undefined) {
-    socket.emit('logIn', localStorage.getItem('username'));
-    isAlreadyLogged = true;
-}
+checkAlreadyLogged();
 
+
+//EVENT LISTENERS//
 connectForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -59,7 +58,10 @@ messageInput.addEventListener('keypress', function(e) {
         socket.emit('stopWritingMsg', loggedUser);
     }, 1000);
 });
+//EVENT LISTENERS//
 
+
+//SOCKET FUNCTIONS//
 socket.on('logInSuccess', function (user) {
     loggedUser = user;
     console.log("Successfully logged in as  :", user);
@@ -102,35 +104,13 @@ socket.on('displayIsWriting', function (users) {
 
 socket.on('usersList', function (currentUsers) {
     var usersDOM = document.getElementById('logged-users-list');
-    var newUsersList = ["Logged users:<br/>"];
+    var newUsersList = ["<p>Logged users:<br/>"];
 
     for (var i = 0; i < currentUsers.length; i++) {
         newUsersList.push("- " + currentUsers[i] + "<br/>")
     }
+    newUsersList.push("</p>");
 
     usersDOM.innerHTML = newUsersList.join("");
 });
-
-function logInAnimation() {
-    var guestForm = document.getElementById('guestForm');
-
-    if(isAlreadyLogged){
-        //Here do something to the html/css if user is already logged
-    }
-    
-    guestForm.style.opacity = '0';
-    setTimeout(function() {
-        guestForm.style.display = 'none';
-        document.getElementById('chat').style.display = 'initial';
-        document.getElementById('logged-users-list').style.display = 'initial';
-        messageInput.focus();
-    }, 300);
-    
-    document.getElementById('fromUser').innerText = '@'+loggedUser;
-}
-
-function scrollToBottom() {
-    lastElementTop = document.querySelector('#chatContainer div:last-child').offsetTop;
-    // scrollAmount = lastElementTop - 200 ;
-    chatContainer.animate({scrollTop: lastElementTop * 10}, 0);
-}
+//SOCKET FUNCTIONS//
