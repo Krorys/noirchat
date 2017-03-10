@@ -6,7 +6,7 @@ var messageForm = document.getElementById('messageForm');
 var messageInput = document.getElementById('message');
 var chatContainer = document.getElementById('chatContainer');
 
-var isAlreadyLogged = false;
+var isAlreadyLogged;
 
 //If user already signed up, previously used username is retrieved
 checkAlreadyLogged();
