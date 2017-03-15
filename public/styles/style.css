@@ -90,7 +90,7 @@ body {
 	margin-bottom: 1.5%;
 }
 
-.jumbotron #messages-container .pseudo {
+.jumbotron .pseudo {
 	font-weight: bold;
 	padding: 5px;
 }

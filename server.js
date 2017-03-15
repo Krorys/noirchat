@@ -35,30 +35,41 @@ io.on('connection', function(socket){
         if (loggedUser == null)
             return;
         currentUsers.remove(loggedUser);
-        io.emit('usersList',currentUsers);
+        /*
+        var currentUserIndex;
+        currentUsers.forEach(function(currentUser, index) {
+            if (currentUser.id == socket.id)
+                currentUserIndex = index;
+        }, this);
+        currentUsers.splice(currentUserIndex, 1);
+        */
+        io.emit('usersList', currentUsers);
         var message = {
-            sender: loggedUser,
+            sender: loggedUser.name,
             at : new Date().toISOString(),
             text : 'has disconnected.', 
             type: 'status'
-        }
+        };
         socket.broadcast.emit('displayMsg', message);
     });
 
-    socket.on('logIn', function (user) {
-        // console.log('Logged as :', user);
-        loggedUser = user;
+    socket.on('logIn', function (username) {
+        // console.log('Logged as :', username);
+        loggedUser = {
+            id: socket.id,
+            name: username
+        };
         currentUsers.push(loggedUser);
         
-        socket.emit('logInSuccess', loggedUser);
+        socket.emit('logInSuccess', loggedUser.name);
         io.emit('usersList', currentUsers);
         
         var message = {
-            sender: loggedUser,
+            sender: loggedUser.name,
             at : new Date().toISOString(),
             text : 'has joined.',
             type: 'status'
-        }
+        };
         io.emit('displayMsg', message);
     });
 

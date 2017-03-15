@@ -11,7 +11,7 @@ function logInLoggedUserAnimation() {
         
     }, 500);
     
-    document.getElementById('fromUser').innerText = '@'+loggedUser;
+    document.getElementById('fromUser').innerText = '@'+loggedUsername;
 }
 
 function logInNewUserAnimation() {
@@ -27,7 +27,7 @@ function logInNewUserAnimation() {
         messageInput.focus();
     }, 500);
     
-    document.getElementById('fromUser').innerText = '@'+loggedUser;
+    document.getElementById('fromUser').innerText = '@'+loggedUsername;
 }
 
 function firstLogAnimation() {
@@ -44,7 +44,7 @@ function checkAlreadyLogged() {
         socket.emit('logIn', localStorage.getItem('username'));
         isAlreadyLogged = true;
     }
-    else{
+    else {
         firstLogAnimation();
         isAlreadyLogged = false;
     }

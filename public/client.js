@@ -1,6 +1,6 @@
 var socket = io();
 
-var loggedUser;
+var loggedUsername;
 var connectForm = document.getElementById('connect-form');
 var messageForm = document.getElementById('message-form');
 var messageInput = document.getElementById('message-input');
@@ -37,13 +37,13 @@ messageForm.addEventListener('submit', function(e) {
         return;
 
     var message = {
-        sender: loggedUser,
+        sender: loggedUsername,
         at: new Date().toISOString(),
         text: messageInput.value,
         type: 'message'
     }
     socket.emit('sendMsg', message);
-    socket.emit('stopWritingMsg', loggedUser);
+    socket.emit('stopWritingMsg', loggedUsername);
     //console.log('Sending : ', message);
     messageInput.value = '';
     messageInput.focus();
@@ -51,7 +51,7 @@ messageForm.addEventListener('submit', function(e) {
 
 var timeout;
 messageInput.addEventListener('keypress', function(e) {
-    socket.emit('writingMsg', loggedUser);
+    socket.emit('writingMsg', loggedUsername);
 
     if (timeout) {
         clearTimeout(timeout);
@@ -59,15 +59,15 @@ messageInput.addEventListener('keypress', function(e) {
     }
     timeout = setTimeout(function() {
         // console.log('Stopped writing :', loggedUser);
-        socket.emit('stopWritingMsg', loggedUser);
+        socket.emit('stopWritingMsg', loggedUsername);
     }, 1000);
 });
 //EVENT LISTENERS//
 
 
 //SOCKET FUNCTIONS//
-socket.on('logInSuccess', function (user) {
-    loggedUser = user;
+socket.on('logInSuccess', function (username) {
+    loggedUsername = username;
     //console.log("Successfully logged in as  :", user);
     if(isAlreadyLogged)
         logInLoggedUserAnimation();
@@ -76,7 +76,7 @@ socket.on('logInSuccess', function (user) {
 });
 
 socket.on('displayMsg', function (message) {
-    if (loggedUser == null)
+    if (loggedUsername == null)
         return;
     //console.log("Received :", message);
 
@@ -100,7 +100,7 @@ socket.on('displayMsg', function (message) {
 });
 
 socket.on('displayIsWriting', function (users) {
-    if (loggedUser == null)
+    if (loggedUsername == null)
         return;
     // console.log("Message being written by :", user);
 
@@ -111,18 +111,20 @@ socket.on('displayIsWriting', function (users) {
 });
 
 socket.on('usersList', function (currentUsers) {
-    //console.log(loggedUser);
-    if (loggedUser == null)
+    console.log(currentUsers);
+    if (loggedUsername == null)
         return;
 
-    var usersDOM = document.getElementById('logged-users-list');
-    var newUsersList = ["<p>Logged users:<br/>"];
-
-    for (var i = 0; i < currentUsers.length; i++) {
-        newUsersList.push("- " + currentUsers[i] + "<br/>")
-    }
-    newUsersList.push("</p>");
-
-    usersDOM.innerHTML = newUsersList.join("");
+    var usersList = document.getElementById('logged-users-list');
+    usersList.innerHTML = 'Logged users :';
+    currentUsers.forEach(function(currentUser) {
+        var newDiv = document.createElement('div');
+        var pseudo = document.createElement('span');
+        pseudo.innerText = currentUser.name;
+        pseudo.setAttribute('id', currentUser.id);
+        pseudo.classList.add('pseudo');
+        usersList.appendChild(newDiv);
+        newDiv.appendChild(pseudo);
+    }, this);
 });
 //SOCKET FUNCTIONS//
