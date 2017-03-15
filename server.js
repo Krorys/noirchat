@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var port = 3000;
 
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;
@@ -15,8 +16,8 @@ Array.prototype.remove = function() {
 };
 
 app.use("/", express.static(__dirname + "/public"));
-http.listen(3000, function() {
-    console.log("Server is listening on : 3000");
+http.listen(port, function() {
+    console.log("Server is listening on : " + port);
 });
 
 
@@ -48,8 +49,10 @@ io.on('connection', function(socket){
         // console.log('Logged as :', user);
         loggedUser = user;
         currentUsers.push(loggedUser);
-        io.emit('usersList',currentUsers);
+        
         socket.emit('logInSuccess', loggedUser);
+        io.emit('usersList', currentUsers);
+        
         var message = {
             sender: loggedUser,
             at : new Date().toISOString(),

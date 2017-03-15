@@ -1,10 +1,13 @@
 var socket = io();
 
 var loggedUser;
-var connectForm = document.getElementById('connectForm');
-var messageForm = document.getElementById('messageForm');
-var messageInput = document.getElementById('message');
-var chatContainer = document.getElementById('chatContainer');
+var connectForm = document.getElementById('connect-form');
+var messageForm = document.getElementById('message-form');
+var messageInput = document.getElementById('message-input');
+var messagesContainer = document.getElementById('messages-container');
+var guestForm = document.getElementById('guest-form');
+var loggedUsersList = document.getElementById('logged-users-list');
+var chat = document.getElementById('chat');
 
 var isAlreadyLogged;
 
@@ -22,7 +25,7 @@ connectForm.addEventListener('submit', function(e) {
 
     
     socket.emit('logIn', username.value);
-    console.log('Tring to log in as :', username.value);
+    //console.log('Tring to log in as :', username.value);
     // username.value = '';
 
     localStorage.setItem('username', username.value);
@@ -40,7 +43,7 @@ messageForm.addEventListener('submit', function(e) {
         type: 'message'
     }
     socket.emit('sendMsg', message);
-    console.log('Sending : ', message);
+    //console.log('Sending : ', message);
     messageInput.value = '';
     messageInput.focus();
 });
@@ -64,19 +67,19 @@ messageInput.addEventListener('keypress', function(e) {
 //SOCKET FUNCTIONS//
 socket.on('logInSuccess', function (user) {
     loggedUser = user;
-    console.log("Successfully logged in as  :", user);
+    //console.log("Successfully logged in as  :", user);
     if(isAlreadyLogged){
-        logInAnimation();
+        logInLoggedUserAnimation();
     }
     else{
-        logInAfterInputAnimation();
+        logInNewUserAnimation();
     }
 });
 
 socket.on('displayMsg', function (message) {
     if (loggedUser == null)
         return;
-    console.log("Received :", message);
+    //console.log("Received :", message);
 
     var newDiv = document.createElement('div');
     var pseudo = document.createElement('span');
@@ -85,7 +88,7 @@ socket.on('displayMsg', function (message) {
     var messageTxt = document.createElement('span');
     messageTxt.innerText = message.text;
 
-    chatContainer.appendChild(newDiv);
+    messagesContainer.appendChild(newDiv);
     newDiv.appendChild(pseudo);
     newDiv.appendChild(messageTxt);
     if (message.type == 'status') {
@@ -93,7 +96,7 @@ socket.on('displayMsg', function (message) {
         messageTxt.classList.add('status');
     }
 
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
     // scrollToBottom();
 });
 
@@ -101,13 +104,18 @@ socket.on('displayIsWriting', function (users) {
     if (loggedUser == null)
         return;
     // console.log("Message being written by :", user);
+
     var txt = users + ' is writing...';
     if (users.length == 0)
         var txt = '';
-    document.getElementById('isWriting').innerText = txt;
+    document.getElementById('is-writing-field').innerText = txt;
 });
 
 socket.on('usersList', function (currentUsers) {
+    //console.log(loggedUser);
+    if (loggedUser == null)
+        return;
+
     var usersDOM = document.getElementById('logged-users-list');
     var newUsersList = ["<p>Logged users:<br/>"];
 

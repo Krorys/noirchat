@@ -1,27 +1,29 @@
-function logInAnimation() {
-    var guestForm = document.getElementById('guestForm');
+function logInLoggedUserAnimation() {
     
-    guestForm.style.display = 'none';
-    document.getElementById('logged-users-list').style.display = 'initial';
+    //guestForm.innerHTML = ""; //Empty login form
+    loggedUsersList.style.display = 'initial';
+    chat.style.display = 'initial';
 
     setTimeout(function() {
-        document.getElementById('chat').style.display = 'initial';
-        document.getElementById('logged-users-list').style.opacity = '1';
+        loggedUsersList.style.opacity = '1';
+        chat.style.opacity = '1';
         messageInput.focus();
+        
     }, 500);
     
     document.getElementById('fromUser').innerText = '@'+loggedUser;
 }
 
-function logInAfterInputAnimation() {
-    var guestForm = document.getElementById('guestForm');
+function logInNewUserAnimation() {
     
     guestForm.style.opacity = '0';
-    document.getElementById('logged-users-list').style.opacity = '1';
+    loggedUsersList.style.opacity = '1';
+    chat.style.opacity = '1';
     setTimeout(function() {
         guestForm.style.display = 'none';
-        document.getElementById('chat').style.display = 'initial';
-        document.getElementById('logged-users-list').style.display = 'initial';
+        //guestForm.innerHTML = ""; //Empty login form
+        chat.style.display = 'initial';
+        loggedUsersList.style.display = 'initial';
         messageInput.focus();
     }, 500);
     
@@ -31,7 +33,7 @@ function logInAfterInputAnimation() {
 function firstLogAnimation() {
     var guestForm = document.getElementById('guestForm');
     
-    guestForm.style.display = 'block'
+    guestForm.style.display = 'block';
     
     setTimeout(function() {
         guestForm.style.opacity = '1';

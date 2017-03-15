@@ -46,14 +46,14 @@ body {
 .jumbotron { 
 	height: 410px;
 }
-.jumbotron #guestForm {
+.jumbotron #guest-form {
 	/*border-bottom: 1px solid #e5e5e5;*/
 	text-align: center;
 	transition: all 0.5s;
 	opacity: 0;
 	display: none;
 }
-.jumbotron #guestForm .input-group {
+.jumbotron #guest-form .input-group {
     width: 50%;
     margin: auto;
 }
@@ -67,40 +67,40 @@ body {
     /*padding: 5px 0 0 0;*/
 	display: none;
 	margin-top: -20px;
+	opacity: 0;
+	transition: all 0.5s;
 }
 
 .jumbotron #logged-users-list {
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: 300px;
-	opacity: 0;
-	transition: all 0.5s;
 }
 
 .jumbotron #logged-users-list p {
 	font-size: 15px;
 }
 
-.jumbotron #chatContainer {
+.jumbotron #messages-container {
 	height: 300px;
 	overflow: auto;
 }
 
-.jumbotron #chatContainer .pseudo {
+.jumbotron #messages-container .pseudo {
 	font-weight: bold;
 	padding: 5px;
 }
 
-.jumbotron #chatContainer .status {
+.jumbotron #messages-container .status {
 	font-size: 12px;
     font-style: italic;
 }
 
-.jumbotron #chatContainer div {
+.jumbotron #messages-container div {
     padding: 5px 0px;
 }
 
-.jumbotron #chatContainer div:nth-child(even){
+.jumbotron #messages-container div:nth-child(even){
     background-color: rgba(0, 0, 0, 0.1);
 }
 
