@@ -31,7 +31,6 @@ function logInNewUserAnimation() {
 }
 
 function firstLogAnimation() {
-    var guestForm = document.getElementById('guestForm');
     
     guestForm.style.display = 'block';
     

@@ -86,6 +86,10 @@ body {
 	overflow: auto;
 }
 
+.jumbotron #message-form {
+	margin-bottom: 1.5%;
+}
+
 .jumbotron #messages-container .pseudo {
 	font-weight: bold;
 	padding: 5px;

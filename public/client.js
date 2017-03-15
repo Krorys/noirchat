@@ -43,6 +43,7 @@ messageForm.addEventListener('submit', function(e) {
         type: 'message'
     }
     socket.emit('sendMsg', message);
+    socket.emit('stopWritingMsg', loggedUser);
     //console.log('Sending : ', message);
     messageInput.value = '';
     messageInput.focus();
@@ -68,12 +69,10 @@ messageInput.addEventListener('keypress', function(e) {
 socket.on('logInSuccess', function (user) {
     loggedUser = user;
     //console.log("Successfully logged in as  :", user);
-    if(isAlreadyLogged){
+    if(isAlreadyLogged)
         logInLoggedUserAnimation();
-    }
-    else{
+    else
         logInNewUserAnimation();
-    }
 });
 
 socket.on('displayMsg', function (message) {
